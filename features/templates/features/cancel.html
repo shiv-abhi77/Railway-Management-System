@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+         <!-- Latest compiled and minified CSS -->
+    {% load static %}
+
+    <script type="text/javascript" src="{%static 'js/bootstrap.min.js'%}"></script>
+    <script type="text/javascript" src="{%static 'js/jquery-3.3.1.min.js'%}"></script>
+    <!-- <link rel="stylesheet" href="{%static 'css/bootstrap.min.css'%}"> -->
+    <link href="https://fonts.googleapis.com/css?family=Dancing+Script" rel="stylesheet">
+    <style>
+        body{
+            background-image:url('{% static "images/abc.jpg"%}');
+            position: absolute;
+            width: 100%;
+            height: max-content;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-opacity:0.4;
+
+
+        }
+        .sty
+        {
+            font-family: 'Dancing Script', cursive;
+            color:white;
+        }
+        .hd
+        {
+            margin-left:400px;
+
+            }
+         .tform{
+            background-color:rgba(0,0,0,0.3);
+            }
+            .fpnr
+            {
+                width:20%;
+                margin-left:500px;
+                margin-top:150px;
+                padding:15px;
+                background-color:rgba(0,0,0,0.3);
+                }
+
+        .tick{
+            width:20%;
+            height:150px;
+            background-image:url('{% static "images/ticket6"%}');
+            background-size:100% 100%;
+            background-repeat:no-repeat;
+            }
+            .header {
+          overflow: hidden;
+          background-color: #373839;
+          padding: 20px 10px;
+          height: 50px;
+        }
+        .header h2 {
+            margin-top: -15px;
+        }
+        .btn-danger {
+            height: 50px;
+            width: 90px;
+            margin-top: -25px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="col-lg-4">
+            <h2 style="text-align:center;"><span class="sty" style="font-size:50px;color:rgb(24, 139, 197);">Current Reservations </span></h2>
+        </div>
+    </div>
+
+        {%csrf_token%}
+    <div class="container">
+    {% for i in res %}
+        <div class="tick" style="font-size:20px;color:white;padding:30px;padding-left:40px;">
+
+            &nbsp&nbspDate       :{{i.date}}<br/>
+            &nbsp&nbspTrain no   :{{i.tno}}<br/>
+            &nbsp&nbspPNR        :{{i.pnr}}<br/>
+            &nbsp&nbspSrc        :{{i.src}}<br/>
+            &nbsp&nbspDes        :{{i.des}}<br/>
+                            <button class="btn btn-danger" value="{{i.pnr}}" style="float:right;border-radius:50%;" onclick="y(this.value)"type="submit">Cancel</button><br/>
+
+        </div>
+            <br/><br/>
+        {%endfor%}
+
+</div>
+
+     <script>
+     function y(vl)
+    {
+
+
+
+        $.ajax({
+            type:'POST',
+            url:'cancel/cn/',
+            data:{
+                    id:vl,
+                    csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+
+                  },
+        success:function(data){
+
+            alert("Cancelled Tickets||Amount Refunded:"+data);
+            window.location.href=window.location.href;
+                               }
+            }
+                )
+
+    }
+    </script>
+</body>
+</html>

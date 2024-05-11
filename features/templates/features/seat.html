@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    {% load static %}
+    <script type="text/javascript" src="{%static 'js/bootstrap.min.js'%}"></script>
+    <script type="text/javascript" src="{%static 'js/jquery-3.3.1.min.js'%}"></script>
+    <link href="https://fonts.googleapis.com/css?family=Dancing+Script" rel="stylesheet">
+    <style>
+        body{
+            background-image:url('{% static "images/train_b.jpg"%}');
+            background-size:100%;
+            height: 100vh;
+            background-repeat:no-repeat;
+        }
+        .sty
+        {
+            font-family: 'Dancing Script', cursive;
+            color:rgb(24, 139, 197) !important;
+        }
+        
+        .hd
+        {
+            margin-left:400px;
+
+            }
+         .tform{
+            background-color:rgba(0,0,0,0.3);
+            }
+            .fpnr
+            {
+                width:20%;
+                margin-left:500px;
+                margin-top:150px;
+                padding:15px;
+                background-color:rgba(0,0,0,0.3);
+                }
+
+        .tick{
+            width:20%;
+            height:150px;
+            background-image:url("images/ticket6");
+            background-size:100% 100%;
+            background-repeat:no-repeat;
+            }
+        select {
+            width: 140px;
+            height: 35px;
+            padding: 5px 35px 5px 5px;
+            font-size: 13px;
+            border: 2px solid #ccc;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background: url("arrow.svg") 96% / 15% no-repeat #eee;
+        }
+        input[type=submit] {
+            background-color: rgb(29, 170, 4);
+            border: none;
+            color: rgb(243, 237, 237);
+            padding: 8px 32px;
+            text-decoration: none;
+            font-size: 1em;
+            margin: 4px 2px;
+            cursor: pointer;
+            margin-left: 80px;
+            height: 40px;
+            text-align: center;
+            border-radius: 14%;
+       }
+        .header {
+          overflow: hidden;
+          background-color: #373839;
+          padding: 20px 10px;
+          height: 50px;
+        }
+        .header h2 {
+            margin-top: -15px;
+        }
+
+
+    </style>
+</head>
+<body>
+    
+    <div class="header">
+        <div class="col-lg-4">
+            <h2 style="text-align:center;"><span class="sty" style="font-size:50px;color:rgb(24, 139, 197);">Search Trains </span></h2>
+        </div>
+        <div class="col-lg-6"></div>
+        <div class="header-right">
+            <!-- <div class="col-lg-1"><span class="sty" style="font-size:17px;">Welcome:{{request.user}}</span></div> -->
+        </div>
+    </div>
+    
+    <br/><br/>
+    <br/><br/>
+    <form class="form-inline" style="margin-left:250px;margin-top: 60px;"action="trains" method="POST">
+        {% csrf_token %}
+        <span class="sty" style="font-size:30px;color:black;">Source:</span><select name="src">
+            {% for i in a %}
+            <option value="{{i.sid}}">{{i.sname}}</option>
+            {%endfor%}
+        </select>
+        <span class="sty" style="font-size:30px;color:black;margin-left: 40px;">Destination:</span>
+        <select name="des">
+            {% for i in a %}
+            <option value="{{i.sid}}">{{i.sname}}</option>
+            {%endfor%}
+        </select>
+        &nbsp
+        <input class="btn btn-success" type="submit" value="Search">
+    </form>
+</body>
+</html>
